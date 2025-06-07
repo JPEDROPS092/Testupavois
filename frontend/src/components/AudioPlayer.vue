@@ -1,88 +1,89 @@
 <template>
-  <v-card class="pa-4" v-if="audioUrl">
-    <v-row align="center">
-      <v-col cols="12">
-        <audio
-          ref="audioPlayer"
-          :src="audioUrl"
-          controls
-          class="w-100"
-          @ended="handleAudioEnded"
-        />
-      </v-col>
-    </v-row>
+  <div>
+    <v-card class="pa-4" v-if="audioUrl">
+      <v-row align="center">
+        <v-col cols="12">
+          <audio
+            ref="audioPlayer"
+            :src="audioUrl"
+            controls
+            class="w-100"
+            @ended="handleAudioEnded"
+          />
+        </v-col>
+      </v-row>
 
-          <div class="d-flex align-center justify-space-between w-100 mb-4">
-            <v-btn
-              :icon="isPlaying ? 'mdi-pause' : 'mdi-play'"
-              color="primary"
-              @click="togglePlay"
-            ></v-btn>
+      <div class="d-flex align-center justify-space-between w-100 mb-4 mt-4">
+        <v-btn
+          :icon="isPlaying ? 'mdi-pause' : 'mdi-play'"
+          color="primary"
+          @click="togglePlay"
+        ></v-btn>
 
-            <v-slider
-              v-model="currentTime"
-              :max="duration"
-              :step="0.1"
-              class="mx-4"
-              hide-details
-              @change="seekAudio"
-            ></v-slider>
+        <v-slider
+          v-model="currentTime"
+          :max="duration"
+          :step="0.1"
+          class="mx-4"
+          hide-details
+          @change="seekAudio"
+        ></v-slider>
 
-            <div class="text-body-2 text-medium-emphasis">
-              {{ formatTime(currentTime) }} / {{ formatTime(duration) }}
-            </div>
-          </div>
-
-          <div class="d-flex align-center justify-space-between w-100">
-            <v-btn-group variant="outlined" color="primary">
-              <v-btn
-                prepend-icon="mdi-volume-medium"
-                @click="adjustVolume(-0.1)"
-              >
-                -
-              </v-btn>
-              <v-btn
-                prepend-icon="mdi-volume-high"
-                @click="adjustVolume(0.1)"
-              >
-                +
-              </v-btn>
-            </v-btn-group>
-
-            <v-btn-group variant="outlined" color="primary">
-              <v-btn
-                prepend-icon="mdi-speedometer-slow"
-                @click="adjustSpeed(-0.1)"
-              >
-                -
-              </v-btn>
-              <v-btn
-                prepend-icon="mdi-speedometer"
-                @click="adjustSpeed(0.1)"
-              >
-                +
-              </v-btn>
-            </v-btn-group>
-
-            <v-btn
-              color="primary"
-              prepend-icon="mdi-download"
-              @click="downloadAudio"
-            >
-              Download
-            </v-btn>
-          </div>
+        <div class="text-body-2 text-medium-emphasis">
+          {{ formatTime(currentTime) }} / {{ formatTime(duration) }}
         </div>
+      </div>
 
-        <div v-else class="text-center pa-4">
-          <v-icon
-            icon="mdi-music-note-off"
-            size="64"
-            color="grey-lighten-1"
-          ></v-icon>
-          <div class="text-body-1 text-medium-emphasis mt-2">
-            No audio available
-          </div>
+      <div class="d-flex align-center justify-space-between w-100">
+        <v-btn-group variant="outlined" color="primary">
+          <v-btn
+            prepend-icon="mdi-volume-medium"
+            @click="adjustVolume(-0.1)"
+          >
+            -
+          </v-btn>
+          <v-btn
+            prepend-icon="mdi-volume-high"
+            @click="adjustVolume(0.1)"
+          >
+            +
+          </v-btn>
+        </v-btn-group>
+
+        <v-btn-group variant="outlined" color="primary">
+          <v-btn
+            prepend-icon="mdi-speedometer-slow"
+            @click="adjustSpeed(-0.1)"
+          >
+            -
+          </v-btn>
+          <v-btn
+            prepend-icon="mdi-speedometer"
+            @click="adjustSpeed(0.1)"
+          >
+            +
+          </v-btn>
+        </v-btn-group>
+
+        <v-btn
+          color="primary"
+          prepend-icon="mdi-download"
+          @click="downloadAudio"
+        >
+          Download
+        </v-btn>
+      </div>
+    </v-card>
+
+    <v-card class="pa-4 text-center" v-else>
+      <v-card-text>
+        <v-icon
+          icon="mdi-music-note-off"
+          size="64"
+          color="grey-lighten-1"
+        ></v-icon>
+        <div class="text-body-1 text-medium-emphasis mt-2">
+          No audio available
         </div>
       </v-card-text>
     </v-card>
@@ -141,9 +142,7 @@ const setupAudio = () => {
   audioElement.value.addEventListener('loadedmetadata', () => {
     duration.value = audioElement.value?.duration || 0
   })
-  audioElement.value.addEventListener('ended', () => {
-    isPlaying.value = false
-  })
+  audioElement.value.addEventListener('ended', handleAudioEnded)
 
   setupVisualizer()
 }
@@ -235,7 +234,11 @@ const formatTime = (time: number): string => {
   const minutes = Math.floor(time / 60)
   const seconds = Math.floor(time % 60)
   return `${minutes}:${seconds.toString().padStart(2, '0')}`
-  // Handle audio playback ended
+}
+
+const handleAudioEnded = () => {
+  isPlaying.value = false;
+  currentTime.value = 0;
 }
 
 const downloadAudio = () => {

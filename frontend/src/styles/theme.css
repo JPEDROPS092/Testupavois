@@ -1,0 +1,213 @@
+:root {
+  /* Colors */
+  --primary-color: #6366F1;
+  --primary-dark: #4F46E5;
+  --primary-light: #A5B4FC;
+  --secondary-color: #8B5CF6;
+  --secondary-dark: #7C3AED;
+  --secondary-light: #C4B5FD;
+  --background-color: #FFFFFF;
+  --background-secondary: #F9FAFB;
+  --background-tertiary: #F3F4F6;
+  --text-color: #111827;
+  --text-secondary: #4B5563;
+  --text-tertiary: #6B7280;
+  --accent-color: #10B981;
+  --accent-dark: #059669;
+  --accent-light: #D1FAE5;
+  --error-color: #EF4444;
+  --error-dark: #DC2626;
+  --error-light: #FEE2E2;
+  --warning-color: #F59E0B;
+  --warning-light: #FEF3C7;
+  --info-color: #3B82F6;
+  --info-light: #DBEAFE;
+  --success-color: #10B981;
+  --success-light: #D1FAE5;
+  --border-color: #E5E7EB;
+  --border-dark: #D1D5DB;
+  --disabled-color: #9CA3AF;
+  
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  --spacing-3xl: 4rem;
+  
+  /* Typography */
+  --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+  
+  /* Border Radius */
+  --border-radius-sm: 0.25rem;
+  --border-radius-md: 0.5rem;
+  --border-radius-lg: 0.75rem;
+  --border-radius-xl: 1rem;
+  --border-radius-full: 9999px;
+  
+  /* Shadows */
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  
+  /* Transitions */
+  --transition-fast: 150ms;
+  --transition-normal: 300ms;
+  --transition-slow: 500ms;
+  --easing-default: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Dark mode */
+[data-theme="dark"] {
+  --background-color: #111827;
+  --background-secondary: #1F2937;
+  --background-tertiary: #374151;
+  --text-color: #F9FAFB;
+  --text-secondary: #E5E7EB;
+  --text-tertiary: #D1D5DB;
+  --primary-color: #818CF8;
+  --primary-dark: #6366F1;
+  --primary-light: #C7D2FE;
+  --secondary-color: #A78BFA;
+  --secondary-dark: #8B5CF6;
+  --secondary-light: #DDD6FE;
+  --accent-color: #34D399;
+  --accent-dark: #10B981;
+  --accent-light: #A7F3D0;
+  --border-color: #4B5563;
+  --border-dark: #6B7280;
+  --disabled-color: #6B7280;
+  --error-light: #7F1D1D;
+  --warning-light: #78350F;
+  --info-light: #1E3A8A;
+  --success-light: #065F46;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  :root {
+    --spacing-2xl: 2.5rem;
+    --spacing-3xl: 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --font-size-2xl: 1.375rem;
+    --font-size-3xl: 1.625rem;
+    --spacing-lg: 1.25rem;
+    --spacing-xl: 1.75rem;
+    --spacing-2xl: 2rem;
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --font-size-sm: 0.75rem;
+    --font-size-md: 0.875rem;
+    --font-size-lg: 1rem;
+    --font-size-xl: 1.125rem;
+    --font-size-2xl: 1.25rem;
+    --spacing-md: 0.75rem;
+    --spacing-lg: 1rem;
+    --spacing-xl: 1.5rem;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s var(--easing-default);
+}
+
+.slide-in-right {
+  animation: slideInRight 0.4s var(--easing-default);
+}
+
+.slide-in-left {
+  animation: slideInLeft 0.4s var(--easing-default);
+}
+
+.pulse {
+  animation: pulse 1.5s var(--easing-default) infinite;
+}
+
+.shimmer {
+  background: linear-gradient(90deg, 
+    var(--background-secondary) 0%, 
+    var(--background-tertiary) 50%, 
+    var(--background-secondary) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}

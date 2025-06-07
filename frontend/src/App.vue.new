@@ -1,0 +1,79 @@
+<template>
+  <v-app :theme="theme">
+    <!-- App Bar -->
+    <v-app-bar
+      color="primary"
+      app
+      elevation="4"
+      :height="64"
+    >
+      <div class="d-flex align-center">
+        <v-icon icon="mdi-text-to-speech" size="large" class="mr-2"></v-icon>
+        <v-app-bar-title class="text-h5 font-weight-bold">Testupavois</v-app-bar-title>
+      </div>
+      <v-spacer></v-spacer>
+      <v-btn
+        variant="text"
+        href="https://github.com/k2-fsa/sherpa-onnx"
+        target="_blank"
+        class="mx-2"
+      >
+        <v-icon icon="mdi-github" class="mr-2"></v-icon>
+        GitHub
+      </v-btn>
+      <ThemeSwitcher @theme-changed="handleThemeChange" />
+    </v-app-bar>
+
+    <!-- Main Content -->
+    <v-main class="bg-background">
+      <v-container fluid class="fill-height pa-0">
+        <!-- Hero Section -->
+        <v-row class="hero-section ma-0 pa-0" justify="center">
+          <v-col cols="12" class="pa-0">
+            <v-sheet
+              color="primary"
+              class="py-10 px-4"
+              rounded="0"
+            >
+              <v-container>
+                <v-row align="center" justify="center">
+                  <v-col cols="12" md="6" lg="5" class="text-center text-md-left">
+                    <h1 class="text-h2 font-weight-bold text-white mb-4">Transforme Texto em Fala</h1>
+                    <p class="text-subtitle-1 text-white mb-6">Utilize nossa tecnologia avançada de síntese de voz para converter texto em áudio natural em diversos idiomas. Agora com suporte para processamento de documentos!</p>
+                    <v-btn
+                      size="large"
+                      color="white"
+                      variant="elevated"
+                      class="text-primary font-weight-bold"
+                      @click="scrollToTTS"
+                    >
+                      <v-icon icon="mdi-play" class="mr-2"></v-icon>
+                      Começar
+                    </v-btn>
+                  </v-col>
+                  <v-col cols="12" md="6" lg="5" class="d-flex justify-center align-center">
+                    <v-sheet
+                      width="300"
+                      height="300"
+                      color="transparent"
+                      class="d-flex justify-center align-center position-relative"
+                    >
+                      <div class="pulse-circle"></div>
+                      <v-avatar
+                        size="200"
+                        color="white"
+                        class="elevation-10"
+                      >
+                        <v-icon
+                          size="100"
+                          color="primary"
+                          icon="mdi-waveform"
+                        ></v-icon>
+                      </v-avatar>
+                    </v-sheet>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-sheet>
+          </v-col>
+        </v-row>

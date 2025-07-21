@@ -1,20 +1,39 @@
-# frontend
+# Testupavois Frontend
 
-This template should help get you started developing with Vue 3 in Vite.
+A modern Vue.js application built with Vue 3, TypeScript, and Vite, featuring audio processing and document management capabilities.
 
-## Recommended IDE Setup
+## Features
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- 🎵 **Audio Player**: Built-in audio playback functionality
+- 📝 **Text Editor**: Rich text editing capabilities
+- 📄 **Document Management**: Document upload and handling
+- 🎙️ **Voice Selection**: Voice input/output management
+- 🎨 **Theme Switching**: Dynamic theme customization
+- 🚀 **Vue 3 + TypeScript**: Modern development stack
+- 📱 **Responsive Design**: Mobile-friendly interface
+- 🛠️ **Vuetify Integration**: Material Design components
 
-## Type Support for `.vue` Imports in TS
+## Tech Stack
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+- Vue.js 3 with Composition API
+- TypeScript
+- Vite
+- Vuetify
+- Vue Router
+- Pinia for state management
 
-## Customize configuration
+## Development Setup
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+### Prerequisites
 
-## Project Setup
+- Node.js (Latest LTS version recommended)
+- npm or yarn
+
+### Recommended IDE Setup
+
+[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) for the best development experience.
+
+### Project Setup
 
 ```sh
 npm install

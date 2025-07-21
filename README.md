@@ -23,57 +23,104 @@ Testupavois/
 
 ## Running the Application
 
-There are two ways to run this application: using Docker for the backend or running both backend and frontend locally.
+There are three ways to run this application: using Docker Compose (recommended), using Docker manually, or running both backend and frontend locally.
 
-### Option 1: Using Docker (for Backend API)
+### Option 1: Using Docker Compose (Recommended)
 
-This method runs the FastAPI backend in a Docker container. The Vue.js frontend will still need to be run locally as described in 'Option 2'.
+This is the easiest way to run the complete application with both frontend and backend in a single container.
 
 **Prerequisites:**
-*   [Docker](https://docs.docker.com/get-docker/) installed on your system.
+
+- [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/) installed on your system.
+
+**Steps:**
+
+1.  **Clone and navigate to the project directory:**
+
+    ```bash
+    cd /path/to/Testupavois
+    ```
+
+2.  **Build and run the application:**
+
+    ```bash
+    docker-compose up --build
+    ```
+
+    Or run in background:
+
+    ```bash
+    docker-compose up -d --build
+    ```
+
+3.  **Access the application:**
+
+    - Frontend UI: `http://localhost:8000`
+    - API documentation: `http://localhost:8000/docs`
+    - API endpoints: `http://localhost:8000/api/...`
+
+4.  **Stop the application:**
+    ```bash
+    docker-compose down
+    ```
+
+### Option 2: Using Docker Manually
+
+**Prerequisites:**
+
+- [Docker](https://docs.docker.com/get-docker/) installed on your system.
 
 **Steps:**
 
 1.  **Build the Docker image:**
     Open a terminal in the project root directory (`Testupavois/`) and run:
+
     ```bash
     docker build -t tts-app .
     ```
 
 2.  **Run the Docker container:**
+
     ```bash
     docker run -p 8000:8000 tts-app
     ```
 
-3.  **Access the backend API:**
-    The FastAPI backend API will be available at `http://localhost:8000`.
-    You can access the interactive API documentation (Swagger UI) at `http://localhost:8000/docs`.
-    The Vue.js frontend (run locally) will connect to these API endpoints.
+3.  **Access the application:**
+    - Frontend UI: `http://localhost:8000`
+    - API documentation: `http://localhost:8000/docs`
+    - API endpoints: `http://localhost:8000/api/...`
 
-### Option 2: Running Locally (Backend and Frontend)
+### Option 3: Running Locally (Backend and Frontend Separately)
+
+This option is recommended for development purposes.
 
 **Prerequisites:**
-*   Python 3.9 or higher
-*   Node.js (version 20.x recommended, as per Dockerfile) and npm
-*   `wget` (for downloading `espeak-ng-data` if not already present from Docker build)
-*   `pip` for Python 3 (Python package manager). If not installed, on Debian/Ubuntu systems, you can install it with: `sudo apt update && sudo apt install python3-pip`
+
+- Python 3.9 or higher
+- Node.js (version 20.x recommended) and npm
+- `wget` (for downloading `espeak-ng-data` if not already present from Docker build)
+- `pip` for Python 3 (Python package manager). If not installed, on Debian/Ubuntu systems, you can install it with: `sudo apt update && sudo apt install python3-pip`
 
 **Backend Setup (Python - FastAPI):**
 
 1.  **Navigate to the project root directory:**
+
     ```bash
     cd /path/to/Testupavois
     ```
 
 2.  **Create and activate a virtual environment (recommended):**
+
     ```bash
     python3 -m venv venv
     source venv/bin/activate  # On Windows use `venv\Scripts\activate`
     ```
-    *Note: The `venv` can be created inside the `backend/` directory or the project root. Adjust paths accordingly.* 
+
+    _Note: The `venv` can be created inside the `backend/` directory or the project root. Adjust paths accordingly._
 
 3.  **Install backend dependencies:**
-    Ensure `backend/requirements.txt` includes `fastapi`, `uvicorn[standard]`, `python-multipart`, `soundfile`, `sherpa-onnx`, and `huggingface_hub`. (Gradio should be removed).
+    Ensure `backend/requirements.txt` includes `fastapi`, `uvicorn[standard]`, `python-multipart`, `soundfile`, `sherpa-onnx`, and `huggingface_hub`.
+
     ```bash
     python3 -m pip install -r backend/requirements.txt
     ```
@@ -85,19 +132,21 @@ This method runs the FastAPI backend in a Docker container. The Vue.js frontend 
     python3 -m uvicorn backend.app:app --reload --port 8000
     ```
     The FastAPI backend will be running. You can access:
-    *   The API endpoints at `http://localhost:8000/api/...`
-    *   The interactive API documentation (Swagger UI) at `http://localhost:8000/docs`.
+    - The API endpoints at `http://localhost:8000/api/...`
+    - The interactive API documentation (Swagger UI) at `http://localhost:8000/docs`.
 
 **Frontend Setup (Vue.js - Vite):**
 
 The Vue.js frontend in the `frontend/` directory provides a custom user interface for the TTS functionality.
 
 1.  **Navigate to the frontend directory:**
+
     ```bash
     cd /path/to/Testupavois/frontend
     ```
 
 2.  **Install frontend dependencies:**
+
     ```bash
     npm install
     ```
@@ -115,3 +164,32 @@ The backend is built with Python using FastAPI. The `backend/app.py` file sets u
 The application downloads `espeak-ng-data` required by some TTS models during the first run of `backend/app.py` or when building the Docker image.
 
 The frontend is a Vue.js application built with Vite. It provides a user interface with controls for language and model selection, text input, and audio playback, interacting with the FastAPI backend via the defined `/api` endpoints.
+
+## Docker Architecture
+
+When running with Docker, the application uses a multi-stage build process:
+
+1. **Frontend Build Stage**: Builds the Vue.js application using Node.js
+2. **Production Stage**:
+   - Sets up Python environment with FastAPI backend
+   - Copies the built frontend assets to `/app/static`
+   - Configures FastAPI to serve both API endpoints and the frontend
+   - The backend serves the frontend at the root path (`/`) while API endpoints are available at `/api/*`
+
+## Development vs Production
+
+- **Development**: Backend and frontend run separately (typically on ports 8000 and 5173)
+- **Docker/Production**: Single container serves both frontend and backend on port 8000
+
+## Troubleshooting
+
+**Docker Issues:**
+
+- If the build fails, try clearing Docker cache: `docker system prune -a`
+- Check logs: `docker-compose logs tts-app`
+- For memory issues, ensure Docker has at least 4GB RAM allocated
+
+**Application Issues:**
+
+- If models fail to download, check internet connection and disk space
+- For permission issues, ensure the Docker user has proper access to mounted volumes
